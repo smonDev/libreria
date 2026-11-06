@@ -18,22 +18,23 @@ public class Copia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //private Integer fk_isbn;
+    // private Integer fk_isbn;
     private Integer num_copie;
-    //private Integer fk_casaeditrice;
+    // private Integer fk_casaeditrice;
 
-    @ManyToOne 
+    @ManyToOne
     @JoinColumn(name = "fk_isbn")
     private Libro libro;
 
     @ManyToOne
     @JoinColumn(name = "fk_casaeditrice")
     private casaEditrice casaeditrice;
-    //Empty Constructor
+
+    // Empty Constructor
     public Copia() {
     }
 
-    //Constructor 
+    // Constructor
     public Copia(Integer id, Libro libro, Integer num_copie, casaEditrice casaeditrice) {
         this.id = id;
         this.libro = libro;
@@ -41,7 +42,7 @@ public class Copia {
         this.casaeditrice = casaeditrice;
     }
 
-    //Getters&Setters
+    // Getters&Setters
 
     public Integer getId() {
         return id;

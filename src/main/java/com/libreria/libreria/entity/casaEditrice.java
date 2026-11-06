@@ -1,17 +1,10 @@
 package com.libreria.libreria.entity;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity 
+@Entity
 @Table(name = "casa_editrice")
 public class casaEditrice {
 
@@ -19,20 +12,17 @@ public class casaEditrice {
     private Integer id_casaeditrice;
     private String nome;
 
-    @OneToMany (mappedBy = "casaEditrice")
-    private Set <Copia> copie = new HashSet<>();
-
-    //EmptyConstructor
+    // EmptyConstructor
     public casaEditrice() {
     }
 
-    //Constructor
+    // Constructor
     public casaEditrice(Integer id_casaeditrice, String nome) {
         this.id_casaeditrice = id_casaeditrice;
         this.nome = nome;
     }
 
-    //Getters&Setters
+    // Getters&Setters
 
     public Integer getId_casaeditrice() {
         return id_casaeditrice;
@@ -50,12 +40,8 @@ public class casaEditrice {
         this.nome = nome;
     }
 
-    public Set<Copia> getCopie() {
-        return copie;
-    }
 
-    public void setCopie(Set<Copia> copie) {
-        this.copie = copie;
-    }
-    
+
+
+
 }

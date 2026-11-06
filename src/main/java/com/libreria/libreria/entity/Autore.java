@@ -3,8 +3,6 @@ package com.libreria.libreria.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.rowset.JoinRowSet;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,21 +20,67 @@ public class Autore {
     // Faccio la stessa cosa di Genere, perché anche Autore ha l'auto-increment su
     // Workbench
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAutore;
-
+    private Integer idAutore;
     private String nome;
     private String cognome;
     private String nazionalita;
 
-    @ManyToMany 
-    @JoinTable (name = "Libri_Autori", joinColumns = @JoinColumn (name = "fk_autore"), inverseJoinColumns = @JoinColumn (name = "fk_isbn"))
+    @ManyToMany
+    @JoinTable(name = "Libri_Autori", joinColumns = @JoinColumn(name = "fk_autore"), inverseJoinColumns = @JoinColumn(name = "fk_isbn"))
     private List<Libro> libri = new ArrayList<>();
 
-
-    // Empty Constructor
+    //Empty Constructor
     public Autore() {
     }
 
-    // Constructor
+    //Constructor
+    public Autore(Integer idAutore,String nome, String cognome, String nazionalita, List<Libro> libri) {
+        this.idAutore = idAutore;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.nazionalita = nazionalita;
+        this.libri = libri;
+    }
+
+    //Getters&Setters
+    public Integer getIdAutore() {
+        return idAutore;
+    }
+
+    public void setIdAutore(Integer idAutore) {
+        this.idAutore = idAutore;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public String getNazionalita() {
+        return nazionalita;
+    }
+
+    public void setNazionalita(String nazionalita) {
+        this.nazionalita = nazionalita;
+    }
+
+    public List<Libro> getLibri() {
+        return libri;
+    }
+
+    public void setLibri(List<Libro> libri) {
+        this.libri = libri;
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.libreria.libreria.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +10,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table (name = "Libri")
 public class Libro {
 
     // Subito dopo @Id si specifica l'id come attributo nella classe.
@@ -19,30 +22,29 @@ public class Libro {
     @Id
     private Integer isbn;
     private String titolo;
-    private Integer anno;
+    private LocalDate anno;
 
     @ManyToOne
     @JoinColumn(name = "fk_genere")
     private Genere genere;
     // dovrò aggiungere lista copie e libro_autore
     @ManyToMany
-    @JoinTable (name = "Libri_Autori", joinColumns = @JoinColumn (name = "fk_isbn"), inverseJoinColumns = @JoinColumn (name = "fk_autore"))
-    private List<Autore> autori = new ArrayList<>(); 
+    @JoinTable(name = "Libri_Autori", joinColumns = @JoinColumn(name = "fk_isbn"), inverseJoinColumns = @JoinColumn(name = "fk_autore"))
+    private List<Autore> autori = new ArrayList<>();
 
-    // Empty Constructor
+    //Empty Constructor
     public Libro() {
     }
 
-    // Constructor
-    public Libro(Integer isbn, String titolo, Integer anno, Genere genere) {
+    //Constructor
+    public Libro(Integer isbn, String titolo, LocalDate anno, Genere genere) {
         this.isbn = isbn;
         this.titolo = titolo;
         this.anno = anno;
         this.genere = genere;
     }
 
-    // Getters&Setters
-
+    //Getters&Setters
     public Integer getIsbn() {
         return isbn;
     }
@@ -59,11 +61,11 @@ public class Libro {
         this.titolo = titolo;
     }
 
-    public Integer getAnno() {
+    public LocalDate getAnno() {
         return anno;
     }
 
-    public void setAnno(Integer anno) {
+    public void setAnno(LocalDate anno) {
         this.anno = anno;
     }
 
