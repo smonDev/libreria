@@ -17,8 +17,7 @@ import jakarta.persistence.Table;
 public class Autore {
 
     @Id
-    // Faccio la stessa cosa di Genere, perché anche Autore ha l'auto-increment su
-    // Workbench
+    // Faccio la stessa cosa di Genere, perché anche Autore ha l'auto-increment su Workbench
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAutore;
     private String nome;

@@ -1,10 +1,12 @@
 package com.libreria.libreria.dto;
 
+import java.time.LocalDate;
+
 public class LibroDTO {
 
     private Integer id;
     private String titolo;
-    private Integer anno;
+    private LocalDate anno;
     private GenereDTO genere;
 
     // Empty Constructor
@@ -12,7 +14,7 @@ public class LibroDTO {
     }
 
     // Constructor
-    public LibroDTO(Integer id, String titolo, Integer anno, GenereDTO genere) {
+    public LibroDTO(Integer id, String titolo, LocalDate anno, GenereDTO genere) {
         this.id = id;
         this.titolo = titolo;
         this.anno = anno;
@@ -36,11 +38,11 @@ public class LibroDTO {
         this.titolo = titolo;
     }
 
-    public Integer getAnno() {
+    public LocalDate getAnno() {
         return anno;
     }
 
-    public void setAnno(Integer anno) {
+    public void setAnno(LocalDate anno) {
         this.anno = anno;
     }
 

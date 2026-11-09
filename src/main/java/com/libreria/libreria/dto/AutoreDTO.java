@@ -1,13 +1,14 @@
 package com.libreria.libreria.dto;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
 
 public class AutoreDTO {
 
     private Integer id;
     private String nome;
     private String cognome;
-    private LocalDate anno;
+    //Campo anno rimosso perché non presente nella tabella Autori (?)
+    //private LocalDate anno;
     private String nazionalita;
 
     // Empty Constructor
@@ -15,12 +16,12 @@ public class AutoreDTO {
     }
 
     // Constructor
-    public AutoreDTO(Integer id, String nome, String cognome, LocalDate anno, String nazionalita) {
+    public AutoreDTO(Integer id, String nome, String cognome, /*LocalDate anno*/ String nazionalita) {
 
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
-        this.anno = anno;
+        //this.anno = anno;
         this.nazionalita = nazionalita;
     }
 
@@ -49,13 +50,13 @@ public class AutoreDTO {
         this.cognome = cognome;
     }
 
-    public LocalDate getAnno() {
+    /*public LocalDate getAnno() {
         return anno;
     }
 
     public void setAnno(LocalDate anno) {
         this.anno = anno;
-    }
+    }*/
 
     public String getNazionalita() {
         return nazionalita;
