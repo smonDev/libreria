@@ -42,4 +42,19 @@ public class LibroService {
             libriDTO.add(mapper.toLibroDTO(libro));
         return libriDTO;
     }
+
+    public void addLibro(Libro libro) {
+        //Devo aggiungere un solo Libro, non mi serve List
+        libroRepository.save(libro);
+    }
+
+    public List<LibroDTO> getAllByAnnoBefore(Integer anno) {
+        LocalDate year = LocalDate.of(anno, 12, 31);
+        List<Libro> libriDB = libroRepository.findAllByAnnoBefore(year);
+            List<LibroDTO> libriDTO = new ArrayList<>();
+            
+            for (Libro libro : libriDB) 
+            libriDTO.add(mapper.toLibroDTO(libro));
+        return libriDTO;
+    }
 }

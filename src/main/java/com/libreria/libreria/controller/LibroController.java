@@ -2,14 +2,9 @@ package com.libreria.libreria.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.libreria.libreria.dto.LibroDTO;
 import com.libreria.libreria.service.LibroService;
-
-import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -31,9 +26,11 @@ public class LibroController {
     }
     
     @GetMapping("/{anno}")
+    //Controllo sulle varie annotazioni 
+    //Strutture sulle quali scrivere i dati (json, body, pathvariable entity)
     public List<LibroDTO> getAllByAnnoBefore(@PathVariable Integer anno) {
-
-      return libroService.getAllByAnno(anno);
-    
+      return libroService.getAllByAnnoBefore(anno);
     }
+
+
 }
