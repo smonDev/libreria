@@ -3,6 +3,7 @@ package com.libreria.libreria.entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -43,6 +44,12 @@ public class Libro {
         this.anno = anno;
         this.genere = genere;
     }
+     public Libro(String titolo, LocalDate anno, Genere genere, List <Autore> autori) {
+        this.titolo = titolo;
+        this.anno = anno;
+        this.genere = genere;
+        this.autori = autori;
+    }
 
     //Getters&Setters
     public Integer getIsbn() {
@@ -51,6 +58,14 @@ public class Libro {
 
     public void setIsbn(Integer isbn) {
         this.isbn = isbn;
+    }
+
+    public List<Autore> getAutori() {
+        return autori;
+    }
+
+    public void setAutori(List<Autore> autori) {
+        this.autori = autori;
     }
 
     public String getTitolo() {

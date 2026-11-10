@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.libreria.libreria.dto.LibroDTO;
 import com.libreria.libreria.entity.Libro;
 
 public interface LibroRepository extends JpaRepository <Libro, Integer> {
