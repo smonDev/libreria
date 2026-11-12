@@ -10,6 +10,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.libreria.libreria.dto.LibroDTO;
+import com.libreria.libreria.dto.LibroRequest;
 import com.libreria.libreria.entity.Autore;
 import com.libreria.libreria.entity.Genere;
 import com.libreria.libreria.entity.Libro;
@@ -64,26 +65,30 @@ public class LibroService {
         return libriDTO;
     }
 
-    public LibroDTO addLibro(String titolo, LocalDate anno, String genere, List<Integer> autori) {          
+    public LibroDTO addLibro(LibroRequest libroRequest) {          
         //Devo aggiungere un solo Libro, non mi serve List
         Genere newGenere = genereRepository.findByNome(genere).orElseThrow(()->new RuntimeException("Genere con nome: " + genere + "non trovato"));
         List<Autore> autoriDB = autoreRepository.findAllById(autori);
-        Libro libro = new Libro(titolo, anno, newGenere, autoriDB);
+        Libro libro = new Libro(isbn, titolo, anno, newGenere, autoriDB);
             return mapper.toLibroDTO(libroRepository.save(libro));
     
     }
 
-    // public void updateLibro(LibroDTO libroDTO, Integer id) {
-    //     //L'Id mi serve per trovare quel libro che voglio modificare, quindi cerco findbyID
-    //     Libro libroDaModificare = libroRepository.findById(id).orElseThrow(()->new RuntimeException("Libro con id: " + id + "non trovato"));
-    //     libroDaModificare.setTitolo(libroDTO.getTitolo());
-    //     libroDaModificare.setAnno(libroDTO.getAnno());
-    //     List<Genere> generi = genereRepository.findByNome(genere)
-    //     libroDaModificare.setGenere(libroDTO.getGenere());
-        
-    //     }
-        
+    //Il metodo torna un Libro invece di void, così posso aggiornare il libro modificato
+    public LibroDTO updateLibro(Integer isbn, String titolo, LocalDate anno, String genere, List<Integer> autori) { 
+    //Cerco il libro nel DB, tramite id, se non lo trovo, lancio l'eccezione
+        Libro libroDaModificare = libroRepository.findById(isbn).orElseThrow(() -> new RuntimeException("Libro con ISBN: " + isbn + " non trovato"));
+        //Passo poi al genere, ma lo cerco per nome:
+        Genere GenereDTO = genereRepository.findByNome(genere).orElseThrow(() -> new RuntimeException("Genere: " + genere + " non trovato"));
+        //Infine cerco autori. Mi servono tutti, quindi utilizzo List:
+        List<Autore> autoriDB = autoreRepository.findAllById(autori);
+        libroDaModificare.setAnno(anno);
+        libroDaModificare.setTitolo(titolo);
+        libroDaModificare.setIsbn(isbn);
+        libroDaModificare.setGenere(GenereDTO);
+        libroDaModificare.setAutori(autoriDB);
+    return mapper.toLibroDTO(libroRepository.save(libroDaModificare));
 
     }
-
+}
 

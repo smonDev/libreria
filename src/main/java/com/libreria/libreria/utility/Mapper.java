@@ -1,5 +1,8 @@
 package com.libreria.libreria.utility;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.libreria.libreria.dto.AutoreDTO;
@@ -22,7 +25,7 @@ public class Mapper {
         // Creo l'oggetto di ritorno
         AutoreDTO autoreDTOret = new AutoreDTO();
         // Caso in cui l'autore è vuoto:
-        if (autore == null) {
+        if (autore != null) {
             // Setto tutti i campi
             autoreDTOret.setId(autore.getIdAutore());
             autoreDTOret.setNome(autore.getNome());
@@ -53,6 +56,10 @@ public class Mapper {
             libroDTOret.setAnno(libro.getAnno());
             // passo GenereDTO perché mi serve un tipo Libro, quindi in Libro c'è Genere
             libroDTOret.setGenere(toGenereDTO(libro.getGenere()));
+            List<AutoreDTO> autoriDTO = new ArrayList<>();
+            for(Autore autore : libro.getAutori()) 
+                autoriDTO.add(toAutoreDTO(autore));
+            libroDTOret.setAutori(autoriDTO);
         }
         return libroDTOret;
     }
@@ -94,7 +101,7 @@ public class Mapper {
     public casaEditrice toCasaEditrice(casaEditriceDTO casaeditriceDTO) {
         casaEditrice casaEditriceRet = new casaEditrice();
         if (casaeditriceDTO != null) {
-            casaEditriceRet.setId_casaeditrice(casaeditriceDTO.getId());
+            casaEditriceRet.setId(casaeditriceDTO.getId());
             casaEditriceRet.setNome(casaeditriceDTO.getNome());
         }
         return casaEditriceRet;
@@ -103,9 +110,9 @@ public class Mapper {
     // casaEditriceDTO
     public casaEditriceDTO toCasaEditriceDTO(casaEditrice casaeditrice) {
         casaEditriceDTO casaEditriceDTOret = new casaEditriceDTO();
-        if(casaeditrice != null) {
-            casaEditriceDTOret.setId(casaEditriceDTOret.getId());
-            casaEditriceDTOret.setNome(casaEditriceDTOret.getNome());
+        if (casaeditrice != null) {
+            casaEditriceDTOret.setId(casaeditrice.getId());
+            casaEditriceDTOret.setNome(casaeditrice.getNome());
         }
         return casaEditriceDTOret;
     }

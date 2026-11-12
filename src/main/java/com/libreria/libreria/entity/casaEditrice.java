@@ -24,11 +24,11 @@ public class casaEditrice {
 
     // Getters&Setters
 
-    public Integer getId_casaeditrice() {
+    public Integer getId() {
         return id_casaeditrice;
     }
 
-    public void setId_casaeditrice(Integer id_casaeditrice) {
+    public void setId(Integer id_casaeditrice) {
         this.id_casaeditrice = id_casaeditrice;
     }
 

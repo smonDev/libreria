@@ -3,8 +3,6 @@ package com.libreria.libreria.entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -44,7 +42,8 @@ public class Libro {
         this.anno = anno;
         this.genere = genere;
     }
-     public Libro(String titolo, LocalDate anno, Genere genere, List <Autore> autori) {
+     public Libro(Integer isbn, String titolo, LocalDate anno, Genere genere, List <Autore> autori) {
+        this.isbn = isbn;
         this.titolo = titolo;
         this.anno = anno;
         this.genere = genere;

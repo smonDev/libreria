@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.libreria.libreria.dto.LibroDTO;
+import com.libreria.libreria.dto.LibroRequest;
 import com.libreria.libreria.service.LibroService;
 
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -39,9 +41,14 @@ public class LibroController {
     }
 
     @PostMapping
-    public LibroDTO addLibro(@RequestParam String titolo, @RequestParam LocalDate anno,@RequestParam String genere, @RequestParam List<Integer> autori) {
-        return libroService.addLibro(titolo, anno, genere, autori);
+    public LibroDTO addLibro(@RequestParam Integer isbn, @RequestParam String titolo, @RequestParam LocalDate anno,@RequestParam String genere, @RequestParam List<Integer> autori) {
+        return libroService.addLibro(isbn, titolo, anno, genere, autori);
         
     }
     
+    @PutMapping
+    public LibroDTO updateLibro(@RequestBody LibroRequest libroRequest) {
+        return libroService.addLibro(libroRequest);
+        
+    }
 }

@@ -25,6 +25,7 @@ public class Autore {
     private String nazionalita;
 
     @ManyToMany
+    //CONTROLLARE QUANDO CREI ENDPOINT
     @JoinTable(name = "Libri_Autori", joinColumns = @JoinColumn(name = "fk_autore"), inverseJoinColumns = @JoinColumn(name = "fk_isbn"))
     private List<Libro> libri = new ArrayList<>();
 
