@@ -18,4 +18,5 @@ public interface LibroRepository extends JpaRepository <Libro, Integer> {
     List<Libro> findAllByAnno(@Param ("anno") Integer anno);
 
     List<Libro> findAllByAnnoBefore(LocalDate year);
+
 }

@@ -10,6 +10,7 @@ public class LibroDTO {
     private LocalDate anno;
     private GenereDTO genere;
     private List <AutoreDTO> autori;
+    
 
     // Empty Constructor
     public LibroDTO() {

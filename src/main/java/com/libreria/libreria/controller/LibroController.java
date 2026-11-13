@@ -9,6 +9,8 @@ import com.libreria.libreria.service.LibroService;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,27 +30,37 @@ public class LibroController {
         this.libroService = libroService;
     }
 
-    @GetMapping
+    @GetMapping ("/all")
     public List<LibroDTO> getAll() {
         return libroService.getAllLibri();
     }
     
-    @GetMapping("/{anno}")
+    @GetMapping ("/anno/{anno}")
+    //Mi controlla i libri usciti fino all'anno che inserisco
     //Controllo sulle varie annotazioni 
     //Strutture sulle quali scrivere i dati (json, body, pathvariable entity)
     public List<LibroDTO> getAllByAnnoBefore(@PathVariable Integer anno) {
       return libroService.getAllByAnnoBefore(anno);
     }
 
-    @PostMapping
-    public LibroDTO addLibro(@RequestParam Integer isbn, @RequestParam String titolo, @RequestParam LocalDate anno,@RequestParam String genere, @RequestParam List<Integer> autori) {
-        return libroService.addLibro(isbn, titolo, anno, genere, autori);
-        
+    @GetMapping ("/id/{isbn}")
+    public LibroDTO getById(@PathVariable Integer isbn) {
+        return libroService.getById(isbn);
     }
     
-    @PutMapping
-    public LibroDTO updateLibro(@RequestBody LibroRequest libroRequest) {
-        return libroService.addLibro(libroRequest);
-        
+
+    @PostMapping
+    public LibroDTO addLibro(@RequestBody LibroRequest libroRequest) {
+        return libroService.addLibro(libroRequest);   
+    }
+    
+    @PutMapping ("/update/{isbn}")
+    public LibroDTO updateLibro(@RequestBody LibroRequest libroRequest, @PathVariable Integer isbn) {
+        return libroService.updateLibro(isbn, libroRequest);  
+    }
+
+    @DeleteMapping ("/delete/{isbn}")
+    public void deleteLibro(@PathVariable Integer isbn) {
+        libroService.deleteLibro(isbn);
     }
 }
