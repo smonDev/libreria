@@ -22,123 +22,157 @@ public class Mapper {
 
     // Autore
     public AutoreDTO toAutoreDTO(Autore autore) {
-        // Creo l'oggetto di ritorno
-        AutoreDTO autoreDTOret = new AutoreDTO();
-        // Caso in cui l'autore è vuoto:
-        if (autore != null) {
-            // Setto tutti i campi
-            autoreDTOret.setId(autore.getIdAutore());
-            autoreDTOret.setNome(autore.getNome());
-            autoreDTOret.setCognome(autore.getCognome());
-            autoreDTOret.setNazionalita(autore.getNazionalita());
+        // Se l'autore è null, torna un oggetto AutoreDTO null
+        if (autore == null) {
+            return null;
         }
+        // Se non è null, creo un nuovo oggetto
+        AutoreDTO autoreDTOret = new AutoreDTO();
+        // Poi setto tutti i campi
+        autoreDTOret.setId(autore.getIdAutore());
+        autoreDTOret.setNome(autore.getNome());
+        autoreDTOret.setCognome(autore.getCognome());
+        autoreDTOret.setNazionalita(autore.getNazionalita());
+
         return autoreDTOret;
     }
 
     // AutoreDTO
     public Autore toAutore(AutoreDTO autoreDTO) {
-        Autore autoreRet = new Autore();
         if (autoreDTO == null) {
+            return null;
+        }
+            Autore autoreRet = new Autore();
+
             autoreRet.setIdAutore(autoreDTO.getId());
             autoreRet.setNome(autoreDTO.getNome());
             autoreRet.setCognome(autoreDTO.getCognome());
             autoreRet.setNazionalita(autoreDTO.getNazionalita());
-        }
-        return autoreRet;
+        
+            return autoreRet;
     }
 
     // Libro
     public LibroDTO toLibroDTO(Libro libro) {
-        LibroDTO libroDTOret = new LibroDTO();
-        if (libro != null) {
-            libroDTOret.setId(libro.getIsbn());
-            libroDTOret.setTitolo(libro.getTitolo());
-            libroDTOret.setAnno(libro.getAnno());
-            // passo GenereDTO perché mi serve un tipo Libro, quindi in Libro c'è Genere
-            libroDTOret.setGenere(toGenereDTO(libro.getGenere()));
-            List<AutoreDTO> autoriDTO = new ArrayList<>();
-            for(Autore autore : libro.getAutori()) 
-                autoriDTO.add(toAutoreDTO(autore));
-            libroDTOret.setAutori(autoriDTO);
+        if (libro == null) {
+            return null;
         }
+        LibroDTO libroDTOret = new LibroDTO();
+
+        libroDTOret.setId(libro.getIsbn());
+        libroDTOret.setTitolo(libro.getTitolo());
+        libroDTOret.setAnno(libro.getAnno());
+        // passo GenereDTO perché mi serve un tipo Libro, quindi in Libro c'è Genere
+        libroDTOret.setGenere(toGenereDTO(libro.getGenere()));
+        List<AutoreDTO> autoriDTO = new ArrayList<>();
+        for (Autore autore : libro.getAutori())
+            autoriDTO.add(toAutoreDTO(autore));
+        libroDTOret.setAutori(autoriDTO);
+
         return libroDTOret;
     }
 
     // LibroDTO
     public Libro toLibro(LibroDTO libroDTO) {
+        if (libroDTO == null) {
+            return null;
+        }
         Libro libroRet = new Libro();
-        if (libroDTO != null) {
-            libroRet.setIsbn(libroDTO.getId());
-            libroRet.setTitolo(libroDTO.getTitolo());
-            libroRet.setAnno(libroDTO.getAnno());
-            // dato che il libro vuole Genere e LibroDTO ha GenereDTO, devo convertirlo
-            libroRet.setGenere(toGenere(libroDTO.getGenere()));
+
+        libroRet.setIsbn(libroDTO.getId());
+        libroRet.setTitolo(libroDTO.getTitolo());
+        libroRet.setAnno(libroDTO.getAnno());
+        // dato che il libro vuole Genere e LibroDTO ha GenereDTO, devo convertirlo
+        libroRet.setGenere(toGenere(libroDTO.getGenere()));
+         List<AutoreDTO> autoriDTO = new ArrayList<>();
+        for (AutoreDTO autoreDTO : libroDTO.getAutori()) {
+            libroRet.getAutori().add(toAutore(autoreDTO));
         }
         return libroRet;
     }
 
     // Genere
     public GenereDTO toGenereDTO(Genere genere) {
-        GenereDTO genereDTOret = new GenereDTO();
-        if (genere != null) {
-            genereDTOret.setId(genere.getidGenere());
-            genereDTOret.setNome(genere.getNome());
+        if (genere == null) {
+            return null;
         }
+        GenereDTO genereDTOret = new GenereDTO();
+
+        genereDTOret.setId(genere.getidGenere());
+        genereDTOret.setNome(genere.getNome());
+
         return genereDTOret;
     }
 
     // GenereDTO
     public Genere toGenere(GenereDTO genereDTO) {
-        Genere genereRet = new Genere();
-        if (genereDTO != null) {
-            genereRet.setidGenere(genereDTO.getId());
-            genereRet.setNome(genereDTO.getNome());
+        if (genereDTO == null) {
+            return null;
         }
+        Genere genereRet = new Genere();
+
+        genereRet.setidGenere(genereDTO.getId());
+        genereRet.setNome(genereDTO.getNome());
+
         return genereRet;
     }
 
     // casaEditrice
     public casaEditrice toCasaEditrice(casaEditriceDTO casaeditriceDTO) {
-        casaEditrice casaEditriceRet = new casaEditrice();
-        if (casaeditriceDTO != null) {
+        if (casaeditriceDTO == null) {
+            return null;
+        }
+            casaEditrice casaEditriceRet = new casaEditrice();
+
             casaEditriceRet.setId(casaeditriceDTO.getId());
             casaEditriceRet.setNome(casaeditriceDTO.getNome());
-        }
-        return casaEditriceRet;
+    
+            return casaEditriceRet;
     }
 
     // casaEditriceDTO
     public casaEditriceDTO toCasaEditriceDTO(casaEditrice casaeditrice) {
-        casaEditriceDTO casaEditriceDTOret = new casaEditriceDTO();
-        if (casaeditrice != null) {
+        if (casaeditrice == null) {
+            return null;
+        }
+            casaEditriceDTO casaEditriceDTOret = new casaEditriceDTO();
+
             casaEditriceDTOret.setId(casaeditrice.getId());
             casaEditriceDTOret.setNome(casaeditrice.getNome());
-        }
-        return casaEditriceDTOret;
+        
+            return casaEditriceDTOret;
     }
 
     // Copia
     public CopiaDTO toCopiaDTO(Copia copia) {
-        CopiaDTO copiaDTOret = new CopiaDTO();
-        if (copia != null) {
+        if (copia == null) {
+            return null;
+        }
+            CopiaDTO copiaDTOret = new CopiaDTO();
+
             copiaDTOret.setId(copia.getId());
             copiaDTOret.setCasaeditrice(toCasaEditriceDTO(copia.getCasaeditrice()));
-            //passo casaEditriceDTO perché devo convertirlo in CopiaDTO, e in CopiaDTO c'è casaEditriceDTO
+            // passo casaEditriceDTO perché devo convertirlo in CopiaDTO, e in CopiaDTO c'è
+            // casaEditriceDTO
             copiaDTOret.setNum_copie(copia.getNum_copie());
-        }
-        return copiaDTOret;
+        
+            return copiaDTOret;
     }
 
     // CopiaDTO
     public Copia toCopia(CopiaDTO copiaDTO) {
-        Copia copiaRet = new Copia();
-        if (copiaDTO != null) {
+        if (copiaDTO == null) {
+            return null;
+        }
+            Copia copiaRet = new Copia();
+
             copiaRet.setId(copiaDTO.getId());
             copiaRet.setCasaeditrice(toCasaEditrice(copiaDTO.getCasaeditrice()));
-            //passo casaEditrice perché devo convertirlo in Copia, e in Copia c'è casaEditrice
+            // passo casaEditrice perché devo convertirlo in Copia, e in Copia c'è
+            // casaEditrice
             copiaRet.setNum_copie(copiaDTO.getNum_copie());
-        }
-        return copiaRet;
+        
+            return copiaRet;
     }
 
 } // EndClass

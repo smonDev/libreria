@@ -1,24 +1,17 @@
 package com.libreria.libreria.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.libreria.libreria.dto.LibroDTO;
 import com.libreria.libreria.dto.LibroRequest;
 import com.libreria.libreria.service.LibroService;
-
-import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-
-
 
 @RestController 
 @RequestMapping ("/libri")
@@ -47,8 +40,6 @@ public class LibroController {
     public LibroDTO getById(@PathVariable Integer isbn) {
         return libroService.getById(isbn);
     }
-    
-
     @PostMapping
     public LibroDTO addLibro(@RequestBody LibroRequest libroRequest) {
         return libroService.addLibro(libroRequest);   

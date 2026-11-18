@@ -95,11 +95,16 @@ public class LibroService {
         // Cerco il libro nel DB, tramite id, se non lo trovo, lancio l'eccezione
         Libro libroDaModificare = libroRepository.findById(isbn)
                 .orElseThrow(() -> new RuntimeException("Libro con ISBN: " + isbn + " non trovato"));
-        // Passo poi al genere, ma lo cerco per nome:
+        // Passo poi al genere, ma lo cerco per nome. Se non lo trovo, lo creo:
         Genere GenereDTO = genereRepository.findByNome(libroRequest.getGenere())
-                .orElseThrow(() -> new RuntimeException("Genere: " + libroRequest.getGenere() + " non trovato"));
+                .orElseGet(() -> {
+                    return genereRepository.save(new Genere(libroRequest.getGenere()));
+                    //Invece che lanciare un'eccezione, salvo prima il genere nel DB e creo l'oggetto new Genere, e poi mi prendo il titolo che è il parametro che mi serve da libroRequest.getGenere();
+                });
         // Infine cerco autori. Mi servono tutti, quindi utilizzo List:
         List<Autore> autoriDB = autoreRepository.findAllById(libroRequest.getAutori());
+        if (autoriDB.size() == 0)
+            throw new RuntimeException("Errore, non è presente alcune autore nel DB!");
         libroDaModificare.setAnno(libroRequest.getAnno());
         libroDaModificare.setTitolo(libroRequest.getTitolo());
         libroDaModificare.setIsbn(isbn);

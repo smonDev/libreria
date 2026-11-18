@@ -11,7 +11,12 @@ public class LibroRequest {
     private String genere;
     private List<Integer> autori;
     
+    //Empty Constructor
+    public LibroRequest() {
+        
+    }
 
+    //Constructor
     public LibroRequest (Integer isbn,String titolo,LocalDate anno,String genere,List<Integer> autori) {
 
         this.isbn = isbn;
@@ -21,7 +26,7 @@ public class LibroRequest {
         this.autori = autori;
     }
 
-
+    //Getters&Setters
     public Integer getIsbn() {
         return isbn;
     }
