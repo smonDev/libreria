@@ -47,7 +47,6 @@ public class LibroService {
         Libro libro = libroRepository.findById(isbn)
         .orElseThrow(() -> new RuntimeException("Libro con ISBN: " + isbn + " non trovato"));
         return(mapper.toLibroDTO(libro));
-
     }
 
     public List<LibroDTO> getAllByAnno(Integer anno) {
@@ -119,5 +118,4 @@ public class LibroService {
                 .orElseThrow(() -> new RuntimeException("Attenzione, libro con ISBN: " + isbn + " non trovato"));
         libroRepository.delete(libroDaEliminare);
     }
-
 }

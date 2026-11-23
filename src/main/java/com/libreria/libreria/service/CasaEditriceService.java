@@ -2,9 +2,7 @@ package com.libreria.libreria.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.libreria.libreria.dto.casaEditriceDTO;
 import com.libreria.libreria.dto.casaEditriceRequest;
 import com.libreria.libreria.entity.casaEditrice;
@@ -68,5 +66,12 @@ public class CasaEditriceService {
         casaEditrice casaEditriceDaModificare = casaEditriceRepository.findById(id).orElseThrow(() -> new RuntimeException("Casa Editrice con id " + id + " non trovata"));
             casaEditriceDaModificare.setNome(casaEditriceRequest.getNome());
             return mapper.toCasaEditriceDTO(casaEditriceRepository.save(casaEditriceDaModificare));
+    }
+
+    public void deleteById(Integer id) {
+        if (casaEditriceRepository.existsById(id)) {
+            casaEditriceRepository.deleteById(id);
+        } else
+            throw new RuntimeException("Casa editrice con id: " + id + " non trovata");
     }
 }
