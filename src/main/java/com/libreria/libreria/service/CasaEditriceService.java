@@ -2,10 +2,15 @@ package com.libreria.libreria.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import com.libreria.libreria.dto.casaEditriceDTO;
 import com.libreria.libreria.dto.casaEditriceRequest;
 import com.libreria.libreria.entity.casaEditrice;
+import com.libreria.libreria.exception.casaEditriceGiaEsistenteException;
+import com.libreria.libreria.exception.casaEditriceInvalidNameException;
+import com.libreria.libreria.exception.casaEditriceNonTrovataException;
 import com.libreria.libreria.repository.casaEditriceRepository;
 import com.libreria.libreria.utility.Mapper;
 
@@ -39,31 +44,30 @@ public class CasaEditriceService {
 
     public casaEditriceDTO getByNome(String nome) {
         casaEditrice trovaNomeCasaEditrice = casaEditriceRepository.findByNome(nome)
-                .orElseThrow(() -> new RuntimeException("Casa editrice con nome : " + nome + " non trovata"));
+                .orElseThrow(() -> new casaEditriceNonTrovataException(nome));
         return mapper.toCasaEditriceDTO(trovaNomeCasaEditrice);
-
     }
 
     public casaEditriceDTO getById(Integer id) {
         casaEditrice trovaIdCasaEditrice = casaEditriceRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Casa editrice con id: " + id + " non trovata"));
+                .orElseThrow(() -> new casaEditriceNonTrovataException(id));
         return mapper.toCasaEditriceDTO(trovaIdCasaEditrice);
     }
 
     public casaEditriceDTO addNewCasaEditrice(casaEditriceRequest casaEditriceRequest) {
         casaEditrice nuovaCasaEditrice = new casaEditrice();
         if (casaEditriceRequest.getNome() == null) {
-            throw new RuntimeException("Errore, inserire un nome valido!");
+            throw new casaEditriceInvalidNameException(casaEditriceRequest);
         } // Controllo anche se il nome creato esiste già nel DB
         if (casaEditriceRepository.findByNome(casaEditriceRequest.getNome()).isPresent()) {
-            throw new RuntimeException("Errore, inserita Casa Editrice con nome già esistente!");
+            throw new casaEditriceGiaEsistenteException(casaEditriceRequest);
         } // Se i controlli vengono superati, imposto il nome al nuovo oggetto
         nuovaCasaEditrice.setNome(casaEditriceRequest.getNome());
         return mapper.toCasaEditriceDTO(casaEditriceRepository.save(nuovaCasaEditrice));
     }
 
     public casaEditriceDTO updateById(casaEditriceRequest casaEditriceRequest, Integer id) {
-        casaEditrice casaEditriceDaModificare = casaEditriceRepository.findById(id).orElseThrow(() -> new RuntimeException("Casa Editrice con id " + id + " non trovata"));
+        casaEditrice casaEditriceDaModificare = casaEditriceRepository.findById(id).orElseThrow(() -> new casaEditriceNonTrovataException(id));
             casaEditriceDaModificare.setNome(casaEditriceRequest.getNome());
             return mapper.toCasaEditriceDTO(casaEditriceRepository.save(casaEditriceDaModificare));
     }
@@ -72,6 +76,6 @@ public class CasaEditriceService {
         if (casaEditriceRepository.existsById(id)) {
             casaEditriceRepository.deleteById(id);
         } else
-            throw new RuntimeException("Casa editrice con id: " + id + " non trovata");
+            throw new casaEditriceNonTrovataException(id);
     }
 }

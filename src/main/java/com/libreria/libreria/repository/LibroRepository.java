@@ -2,13 +2,12 @@ package com.libreria.libreria.repository;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.libreria.libreria.entity.Libro;
 
+//Repository cerca gli oggetti nel database
 public interface LibroRepository extends JpaRepository <Libro, Integer> {
 
     @Query (value = """ 

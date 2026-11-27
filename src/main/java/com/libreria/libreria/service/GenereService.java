@@ -1,12 +1,17 @@
 package com.libreria.libreria.service;
 
-import com.libreria.libreria.controller.AutoreController;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
+
+import com.libreria.libreria.controller.AutoreController;
 import com.libreria.libreria.dto.GenereDTO;
 import com.libreria.libreria.dto.GenereRequest;
 import com.libreria.libreria.entity.Genere;
+import com.libreria.libreria.exception.GenereGiaEsistenteException;
+import com.libreria.libreria.exception.GenereInvalidNameException;
+import com.libreria.libreria.exception.GenereNonTrovatoException;
 import com.libreria.libreria.repository.GenereRepository;
 import com.libreria.libreria.utility.Mapper;
 
@@ -42,17 +47,17 @@ public class GenereService {
     public GenereDTO getByNome(String nome) {
         // Cerco il genere nel DB, tramite nome. Se non lo trovo lancio l'eccezione
         Genere genereDaTrovare = genereRepository.findByNome(nome)
-                .orElseThrow(() -> new RuntimeException("Genere con nome: " + nome + " non trovato"));
+                .orElseThrow(() -> new GenereNonTrovatoException(nome));
         return mapper.toGenereDTO(genereDaTrovare);
     }
 
     public GenereDTO updateByNome(GenereRequest genereRequest, String nomeVecchio) {
         Genere genere = genereRepository.findByNome(nomeVecchio)
-                .orElseThrow(() -> new RuntimeException("Genere con nome " + nomeVecchio + " non trovato"));
+                .orElseThrow(() -> new GenereNonTrovatoException(genereRequest.getNome()));
         // Se genere (che fa riferimento al DB) è uguale al genere che invia il client,
         // quindi sono uguali, non aggiorno, e lancio eccezione
         if (genere.getNome().equals(genereRequest.getNome()))
-            throw new IllegalArgumentException("Il nuovo nome corrisponde già a quello vecchio");
+            throw new GenereGiaEsistenteException(genereRequest.getNome());
         // quindi, se non esce dal programma con l'eccezione, significa che i nomi sono
         // diversi e quindi aggiorna genere con nome nuovo
         genere.setNome(genereRequest.getNome());
@@ -64,10 +69,10 @@ public class GenereService {
         Genere nuovoGenere = new Genere();
         // Controllo che il nome non sia vuoto
         if (genereRequest.getNome() == null) {
-            throw new RuntimeException("Errore, inserire un nome valido!");
+            throw new GenereInvalidNameException(genereRequest.getNome());
         } // Controllo anche se il nome creato esiste già nel DB
         if (genereRepository.findByNome(genereRequest.getNome()).isPresent()) {
-            throw new RuntimeException("Errore, inserito un genere con nome già esistente!");
+            throw new GenereGiaEsistenteException(genereRequest.getNome());
         } // Se i controlli vengono superati, imposto il nome al nuovo oggetto
         nuovoGenere.setNome(genereRequest.getNome());
         // Poi lo salvo nel DB e lo converto in GenereDTO
@@ -78,6 +83,6 @@ public class GenereService {
         if (genereRepository.existsById(id)) {
             genereRepository.deleteById(id);
         } else
-            throw new RuntimeException("Genere con id: " + id + " non trovato");
+            throw new GenereNonTrovatoException(id);
     }
 }

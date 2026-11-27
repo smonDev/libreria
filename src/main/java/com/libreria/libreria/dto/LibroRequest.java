@@ -3,9 +3,13 @@ package com.libreria.libreria.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-public class LibroRequest {
+import jakarta.validation.constraints.NotNull;
 
+public class LibroRequest {
+    //Validation
+    @NotNull (message = "L'ISBN del libro non può essere vuoto.")
     private Integer isbn;
+
     private String titolo;
     private LocalDate anno;
     private String genere;

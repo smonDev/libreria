@@ -1,16 +1,19 @@
 package com.libreria.libreria.service;
 
-import com.libreria.libreria.controller.AutoreController;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
+import com.libreria.libreria.controller.AutoreController;
 import com.libreria.libreria.dto.CopiaDTO;
 import com.libreria.libreria.dto.CopiaRequest;
 import com.libreria.libreria.entity.Copia;
 import com.libreria.libreria.entity.Libro;
 import com.libreria.libreria.entity.casaEditrice;
+import com.libreria.libreria.exception.CopiaNonTrovataException;
+import com.libreria.libreria.exception.LibroNonTrovatoException;
+import com.libreria.libreria.exception.casaEditriceNonTrovataException;
 import com.libreria.libreria.repository.CopiaRepository;
 import com.libreria.libreria.repository.LibroRepository;
 import com.libreria.libreria.repository.casaEditriceRepository;
@@ -39,11 +42,10 @@ public class CopiaService {
         // metodo findById presente in Repository
         Libro libroDaRecuperare = libroRepository.findById(copiaRequest.getFk_isbn())
                 // Se non lo trovo lancio l'eccezione con messaggio
-                .orElseThrow(() -> new RuntimeException("Libro con id: " + copiaRequest.getFk_isbn() + "non trovato"));
+                .orElseThrow(() -> new LibroNonTrovatoException(copiaRequest.getFk_isbn()));
         // Lo stesso con casaEditrice:
         casaEditrice cEditriceDaRecuperare = casaEditriceRepository.findById(copiaRequest.getFk_casaeditrice())
-                .orElseThrow(() -> new RuntimeException(
-                        "Casa editrice con id: " + copiaRequest.getFk_casaeditrice() + "non trovata"));
+                .orElseThrow(() -> new casaEditriceNonTrovataException(copiaRequest.getFk_casaeditrice()));
         Copia copia = new Copia();
         // Settare l'ID non serve perché nella Entity Copia il valore id è
         // auto-increment, l'ID viene assegnato quando JPA esegue l'inserimento nel
@@ -60,7 +62,7 @@ public class CopiaService {
 
     public CopiaDTO updateCopiaById(CopiaRequest copiaRequest, Integer id) {
         Copia copia = copiaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Errore, copia con id: " + id + "non trovata"));
+                .orElseThrow(() -> new CopiaNonTrovataException(id));
         copia.setNum_copie(copiaRequest.getNum_copie());
         return mapper.toCopiaDTO(copiaRepository.save(copia));
     }
@@ -83,7 +85,7 @@ public class CopiaService {
         // Cerco la copia nel database tramite copiaRepo, se non la trovo, lancio
         // un'eccezione
         Copia copia = copiaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Copia con id: " + id + " non trovata"));
+                .orElseThrow(() -> new CopiaNonTrovataException(id));
         // Se invece la trovo, restituisco la copia, convertita in CopiaDTO
         return mapper.toCopiaDTO(copia);
     }
@@ -91,7 +93,7 @@ public class CopiaService {
     public void deleteById(Integer id) {
         // Molto simile a getById(), SOLAMENTE CHE ELIMINA invece di cercare. Il ritorno può essere void
         Copia copiaDaEliminare = copiaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Copia con id: " + id + " non trovata"));
+                .orElseThrow(() -> new CopiaNonTrovataException(id));
         copiaRepository.delete(copiaDaEliminare);
     }
 }
