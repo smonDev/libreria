@@ -1,13 +1,27 @@
 package com.libreria.libreria.exception;
 
+import java.util.stream.Collectors;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 //Annotazione a cui Spring farà riferimento per gestire tutte le Eccezioni dell'applicazione scritte dentro questa classe
 @RestControllerAdvice 
 public class GestoreExceptions {
+
+    //Serve per estrarre i messaggi di errore se presenti. Rende tutto più pulito e chiaro.
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> gestisciValidation(MethodArgumentNotValidException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getBindingResult()
+                .getAllErrors()
+                .stream()
+                .map(error -> error.getDefaultMessage())
+                .collect(Collectors.joining("; ")));
+    }
+
     //Gestore di Eccezioni(prende la classe LibroNonTrovatoException) -- Intercetta l'eccezione e costruisce la risposta HTTP.
     @ExceptionHandler (LibroNonTrovatoException.class) 
     //La classe relativa alle risposte http. Gestisce questa eccezione e restituisce uno status code che codifica l'eccezione come titolo, il body è invece codificato dal messaggio associato a quella eccezione
