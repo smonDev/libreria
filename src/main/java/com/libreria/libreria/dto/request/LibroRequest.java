@@ -1,18 +1,22 @@
-package com.libreria.libreria.dto;
+package com.libreria.libreria.dto.request;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public class LibroRequest {
     //Validation
     @NotNull (message = "L'ISBN del libro non può essere vuoto.")
     private Integer isbn;
-
+    @NotBlank (message = "Il titolo non può mancare come campo.")
     private String titolo;
     private LocalDate anno;
+    @NotBlank (message = "Il genere non può mancare come campo.")
     private String genere;
+    @NotEmpty (message = "La lista degli autori non può mancare come campo.")
     private List<Integer> autori;
     
     //Empty Constructor

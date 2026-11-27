@@ -1,6 +1,6 @@
 package com.libreria.libreria.exception;
 
-import com.libreria.libreria.dto.casaEditriceRequest;
+import com.libreria.libreria.dto.request.casaEditriceRequest;
 
 public class casaEditriceInvalidNameException extends RuntimeException {
     public casaEditriceInvalidNameException(casaEditriceRequest casaEditriceRequest) {

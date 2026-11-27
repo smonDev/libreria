@@ -1,9 +1,14 @@
-package com.libreria.libreria.dto;
+package com.libreria.libreria.dto.request;
+
+import jakarta.validation.constraints.NotBlank;
 
 public class AutoreRequest {
 
+    @NotBlank (message = "Il nome non può mancare come campo.")
     private String nome;
+    @NotBlank (message = "Il cognome non può mancare come campo.")
     private String cognome;
+    @NotBlank (message = "La nazionalità non può mancare come campo.")
     private String nazionalita;
 
     //EmptyConstructor

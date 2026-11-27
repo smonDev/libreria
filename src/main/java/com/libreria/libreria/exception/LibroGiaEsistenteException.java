@@ -1,6 +1,6 @@
 package com.libreria.libreria.exception;
 
-import com.libreria.libreria.dto.LibroRequest;
+import com.libreria.libreria.dto.request.LibroRequest;
 
 public class LibroGiaEsistenteException extends RuntimeException {
 

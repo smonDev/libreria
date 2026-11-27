@@ -1,17 +1,21 @@
 package com.libreria.libreria.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.libreria.libreria.dto.GenereDTO;
-import com.libreria.libreria.dto.GenereRequest;
-import com.libreria.libreria.service.GenereService;
 import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.libreria.libreria.dto.GenereDTO;
+import com.libreria.libreria.dto.request.GenereRequest;
+import com.libreria.libreria.service.GenereService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/generi")
@@ -42,13 +46,13 @@ public class GenereController {
     // Utilizzo @PathVariable quando ho un parametro specifico nel path. In questo
     // caso, recupera il nome prima della modifica
     // @RequestParam recupera un nuovo nome dai parametri
-    public GenereDTO updateByNome(@RequestBody GenereRequest genereRequest, @PathVariable String nomeVecchio) {
+    public GenereDTO updateByNome(@Valid @RequestBody GenereRequest genereRequest, @PathVariable String nomeVecchio) {
         return genereService.updateByNome(genereRequest, nomeVecchio);
     }
 
     // Aggiungo un nuovo genere
     @PostMapping("/add")
-    public GenereDTO addGenere(@RequestBody GenereRequest genereRequest) {
+    public GenereDTO addGenere(@Valid @RequestBody GenereRequest genereRequest) {
         return genereService.addGenere(genereRequest);
     }
 

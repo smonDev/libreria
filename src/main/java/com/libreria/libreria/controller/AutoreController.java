@@ -1,17 +1,21 @@
 package com.libreria.libreria.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.libreria.libreria.dto.AutoreDTO;
-import com.libreria.libreria.dto.AutoreRequest;
-import com.libreria.libreria.service.AutoreService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.libreria.libreria.dto.AutoreDTO;
+import com.libreria.libreria.dto.request.AutoreRequest;
+import com.libreria.libreria.service.AutoreService;
+
+import jakarta.validation.Valid;
 
 @RestController 
 @RequestMapping ("/autori")
@@ -24,7 +28,7 @@ public class AutoreController {
     }
 
     @PostMapping
-    public AutoreDTO addAutore(@RequestBody AutoreRequest autoreRequest) {
+    public AutoreDTO addAutore(@Valid @RequestBody AutoreRequest autoreRequest) {
         return autoreService.addAutore(autoreRequest);
     }
     
@@ -39,7 +43,7 @@ public class AutoreController {
     }
 
     @PutMapping("/update/{id}")
-    public AutoreDTO updateById(@PathVariable Integer id, @RequestBody AutoreRequest autoreRequest) {
+    public AutoreDTO updateById(@PathVariable Integer id, @Valid @RequestBody AutoreRequest autoreRequest) {
         return autoreService.updateById(autoreRequest, id);
     }
 

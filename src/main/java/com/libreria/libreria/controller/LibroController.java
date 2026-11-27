@@ -1,18 +1,21 @@
 package com.libreria.libreria.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.libreria.libreria.dto.LibroDTO;
-import com.libreria.libreria.dto.LibroRequest;
-import com.libreria.libreria.service.LibroService;
 import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.libreria.libreria.dto.LibroDTO;
+import com.libreria.libreria.dto.request.LibroRequest;
+import com.libreria.libreria.service.LibroService;
+
+import jakarta.validation.Valid;
 
 
 @RestController 
@@ -49,12 +52,12 @@ public class LibroController {
     }
     
     @PostMapping
-    public LibroDTO addLibro(@RequestBody LibroRequest libroRequest) {
+    public LibroDTO addLibro(@Valid @RequestBody LibroRequest libroRequest) {
         return libroService.addLibro(libroRequest);   
     }
     
     @PutMapping ("/update/{isbn}")
-    public LibroDTO updateLibro(@RequestBody LibroRequest libroRequest, @PathVariable Integer isbn) {
+    public LibroDTO updateLibro(@Valid @RequestBody LibroRequest libroRequest, @PathVariable Integer isbn) {
         return libroService.updateLibro(isbn, libroRequest);  
     }
 

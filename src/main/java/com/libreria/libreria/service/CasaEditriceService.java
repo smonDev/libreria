@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.libreria.libreria.dto.casaEditriceDTO;
-import com.libreria.libreria.dto.casaEditriceRequest;
+import com.libreria.libreria.dto.request.casaEditriceRequest;
 import com.libreria.libreria.entity.casaEditrice;
 import com.libreria.libreria.exception.casaEditriceGiaEsistenteException;
 import com.libreria.libreria.exception.casaEditriceInvalidNameException;

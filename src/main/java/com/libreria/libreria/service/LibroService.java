@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.libreria.libreria.dto.LibroDTO;
-import com.libreria.libreria.dto.LibroRequest;
+import com.libreria.libreria.dto.request.LibroRequest;
 import com.libreria.libreria.entity.Autore;
 import com.libreria.libreria.entity.Genere;
 import com.libreria.libreria.entity.Libro;

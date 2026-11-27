@@ -1,7 +1,10 @@
-package com.libreria.libreria.dto;
+package com.libreria.libreria.dto.request;
+
+import jakarta.validation.constraints.NotBlank;
 
 public class GenereRequest {
 
+    @NotBlank (message = "Il nome del genere non può mancare come campo.")
     private String nome;
 
     //Empty Constructor

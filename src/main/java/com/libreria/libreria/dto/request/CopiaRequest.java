@@ -1,10 +1,15 @@
-package com.libreria.libreria.dto;
+package com.libreria.libreria.dto.request;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 public class CopiaRequest {
 
+    @NotNull (message = "L'ID della copia non può essere vuoto.")
     private Integer fk_isbn;
+    @PositiveOrZero (message = "Il numero di copie può essere come minimo 0 o superiore.")
     private Integer num_copie;
+    @NotNull (message = "L'ID della Casa Editrice non può essere vuoto.")
     private Integer fk_casaeditrice;
 
     //EmptyConstructor

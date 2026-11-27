@@ -1,17 +1,21 @@
 package com.libreria.libreria.controller;
 
-import com.libreria.libreria.dto.casaEditriceDTO;
-import com.libreria.libreria.dto.casaEditriceRequest;
-import com.libreria.libreria.service.CasaEditriceService;
-import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.libreria.libreria.dto.casaEditriceDTO;
+import com.libreria.libreria.dto.request.casaEditriceRequest;
+import com.libreria.libreria.service.CasaEditriceService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/caseeditrici")
@@ -29,13 +33,13 @@ public class casaEditriceController {
     }
 
     @PostMapping
-    public casaEditriceDTO aggiungiCasaEditrice(@RequestBody casaEditriceRequest casaEditriceRequest) {
+    public casaEditriceDTO aggiungiCasaEditrice(@Valid @RequestBody casaEditriceRequest casaEditriceRequest) {
         return casaEditriceService.addNewCasaEditrice(casaEditriceRequest);
     }
 
     @PutMapping("/{id}")
     public casaEditriceDTO modificaCasaEditrice(@PathVariable Integer id,
-            @RequestBody casaEditriceRequest casaEditriceRequest) {
+            @Valid @RequestBody casaEditriceRequest casaEditriceRequest) {
         return casaEditriceService.updateById(casaEditriceRequest, id);
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.libreria.libreria.dto.AutoreDTO;
-import com.libreria.libreria.dto.AutoreRequest;
+import com.libreria.libreria.dto.request.AutoreRequest;
 import com.libreria.libreria.entity.Autore;
 import com.libreria.libreria.exception.AutoreGiaEsistenteException;
 import com.libreria.libreria.exception.AutoreNonTrovatoException;

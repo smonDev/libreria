@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.libreria.libreria.controller.AutoreController;
 import com.libreria.libreria.dto.GenereDTO;
-import com.libreria.libreria.dto.GenereRequest;
+import com.libreria.libreria.dto.request.GenereRequest;
 import com.libreria.libreria.entity.Genere;
 import com.libreria.libreria.exception.GenereGiaEsistenteException;
 import com.libreria.libreria.exception.GenereInvalidNameException;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.libreria.libreria.controller.AutoreController;
 import com.libreria.libreria.dto.CopiaDTO;
-import com.libreria.libreria.dto.CopiaRequest;
+import com.libreria.libreria.dto.request.CopiaRequest;
 import com.libreria.libreria.entity.Copia;
 import com.libreria.libreria.entity.Libro;
 import com.libreria.libreria.entity.casaEditrice;
